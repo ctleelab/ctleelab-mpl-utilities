@@ -162,5 +162,7 @@ cython_debug/
 #.idea/
 
 # pixi environments
-.pixi
-*.egg-info
+.pixi/*
+!.pixi/config.toml
+
+ctleelab_plothelper/_version.py

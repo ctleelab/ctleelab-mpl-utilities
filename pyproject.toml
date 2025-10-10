@@ -26,9 +26,8 @@ classifiers = [
 ]
 
 dependencies = [
-    "matplotlib>=3.10.0,<4",
-    "seaborn>=0.13.2,<0.14",
-    "mscorefonts>=0.0.1,<0.0.2",]
+    "matplotlib",
+    "seaborn"]
 dynamic = ["version"]
 
 [tool.hatch]
@@ -36,3 +35,17 @@ version.source = "vcs"
 version.raw_options.version_scheme = "guess-next-dev"
 version.raw_options.local_scheme = "node-and-date"
 build.hooks.vcs.version-file = "ctleelab_plothelper/_version.py"
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+[tool.pixi.pypi-dependencies]
+ctleelab_plothelper = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+matplotlib = ">=3.10.6,<4"
+seaborn = ">=0.13.2,<0.14"
+mscorefonts = ">=0.0.1,<0.0.2"
