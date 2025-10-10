@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ctleelab-mpl-utilities"
+
+authors = [{ name = "Christopher T. Lee", email = "ctlee@ucsd.edu" }]
+
+description = "Plotting utilities for matplotlib"
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = ["plotting"]
+
+license = { text = "Mozilla Public License 2.0 (MPL 2.0)" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+
+dependencies = [
+    "matplotlib>=3.10.0,<4",
+    "seaborn>=0.13.2,<0.14",
+    "mscorefonts>=0.0.1,<0.0.2",]
+dynamic = ["version"]
+
+[tool.hatch]
+version.source = "vcs"
+version.raw_options.version_scheme = "guess-next-dev"
+version.raw_options.local_scheme = "node-and-date"
+build.hooks.vcs.version-file = "ctleelab-mpl-utilities/_version.py"
