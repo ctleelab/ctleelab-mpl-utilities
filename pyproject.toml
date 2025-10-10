@@ -3,7 +3,7 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ctleelab-mpl-utilities"
+name = "ctleelab_plothelper"
 
 authors = [{ name = "Christopher T. Lee", email = "ctlee@ucsd.edu" }]
 
@@ -35,4 +35,4 @@ dynamic = ["version"]
 version.source = "vcs"
 version.raw_options.version_scheme = "guess-next-dev"
 version.raw_options.local_scheme = "node-and-date"
-build.hooks.vcs.version-file = "ctleelab-mpl-utilities/_version.py"
+build.hooks.vcs.version-file = "ctleelab_plothelper/_version.py"
