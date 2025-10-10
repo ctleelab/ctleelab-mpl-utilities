@@ -1,0 +1,15 @@
+[project]
+authors = [
+    "Christopher T. Lee <ctlee@ucsd.edu>",
+]
+channels = ["conda-forge"]
+description = "Plotting utilities for matplotlib"
+name = "ctleelab-mpl-utilities"
+platforms = ["osx-arm64", "linux-64"]
+version = "0.1.0"
+
+[dependencies]
+matplotlib = ">=3.10.0,<4"
+seaborn = ">=0.13.2,<0.14"
+mscorefonts = ">=0.0.1,<0.0.2"
+python = ">=3.12.8,<3.14"
