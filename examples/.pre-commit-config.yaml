@@ -17,7 +17,7 @@ repos:
     rev: "23.1.0"
     hooks:
       - id: black
-        files: "^automem|^tests"
+        files: "^ctleelab_plothelper|^tests"
 
   - repo: https://github.com/codespell-project/codespell
     rev: "v2.4.1"
