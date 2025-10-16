@@ -1,0 +1,8 @@
+
+axes.facecolor: none 
+
+figure.facecolor:  none 
+figure.edgecolor:   none 
+
+savefig.facecolor:  none 
+savefig.edgecolor:  none 
