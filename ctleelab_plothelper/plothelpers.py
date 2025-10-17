@@ -50,7 +50,7 @@ def fixed_size_subplots(
 ) -> Tuple[plt.Figure, Tuple[mpl.axes.Axes, npt.NDArray[mpl.axes.Axes]]]:
     """Utility wrapper for creating a figure with subplots of specific axes sizes.
 
-    All sizes are in inches. wmargin and hmargin are the width and heigh margins on the left and bottom sides.
+    All sizes are in inches. wmargin and hmargin are the width and height margins on the left and bottom sides.
     The right and top margins are `wmargin` and `hmargin` scaled by `rmargin_scale` and `tmargin_scale`, respectively.
     The spacing between subplots is given by `wmargin` and `hmargin` plus `rowsep` and `colsep`. For example, "| wmargin | subwidth | wmargin + colsep | subwidth | wmargin*rmargin_scale |"
 
@@ -123,7 +123,7 @@ def get_renderer(fig):
 
 def add_colorbar(
     im: mpl.image.AxesImage,
-    # ax: mpl.axes.Axes = None,
+    ax: mpl.axes.Axes = None,
     aspect: float = 20,
     pad_fraction: float = 0.5,
     **kwargs,
@@ -139,8 +139,7 @@ def add_colorbar(
         -> mpl.colorbar.Colorbar: Colorbar instance
     """
     if ax is None:
-        # ax = plt.gca()
-        ax = im.axes
+        ax = plt.gca()
     divider = axes_grid1.make_axes_locatable(ax)
     width = axes_grid1.axes_size.AxesY(ax, aspect=1.0 / aspect)
     pad = axes_grid1.axes_size.Fraction(pad_fraction, width)
@@ -151,7 +150,7 @@ def add_colorbar(
 
 def add_fixed_colorbar(
     im: mpl.image.AxesImage,
-    # ax: mpl.axes.Axes = None,
+    ax: mpl.axes.Axes = None,
     aspect: float = 20,
     pad: float = 0.05,
     **kwargs,
@@ -160,6 +159,7 @@ def add_fixed_colorbar(
 
     Args:
         im (mpl.image.AxesImage): The image to which the colorbar applies.
+        ax (mpl.axes.Axes, optional): The axes to draw the colorbar by. Defaults to None.
         aspect (float, optional): Aspect width in inches. Defaults to 20.
         pad (float, optional): Padding spacing in inches. Defaults to 0.05.
         **kwargs: Additional keyword arguments passed to colorbar().
@@ -168,9 +168,8 @@ def add_fixed_colorbar(
         mpl.colorbar.Colorbar: Colorbar instance
 
     """
-    # if ax is None:
-    # ax = plt.gca()
-    ax = im.axes
+    if ax is None:
+        ax = plt.gca()
 
     divider = FixedSizeDivider(ax)
     divider.set_locator(ax.get_axes_locator())

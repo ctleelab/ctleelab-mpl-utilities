@@ -55,7 +55,7 @@ for i, (style, style_ext) in enumerate(plot_styles):
 
         ax = axs[0, 2]
         im = ax.imshow(r, cmap="viridis")
-        ph.add_fixed_colorbar(im, aspect=20, pad=0.05)
+        ph.add_fixed_colorbar(im, ax=ax, aspect=20, pad=0.05)
 
         fig.savefig(f"demo{style_ext}")
         fig.savefig(f"demo{style_ext}.svg", format="svg")
