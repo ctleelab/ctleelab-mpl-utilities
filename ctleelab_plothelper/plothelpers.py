@@ -32,7 +32,7 @@ from operator import sub
 import datetime
 
 import numpy.typing as npt
-from typing import Tuple
+from typing import Tuple, Union
 
 
 def fixed_size_subplots(
@@ -47,7 +47,7 @@ def fixed_size_subplots(
     rmargin_scale: float = 0.6,
     tmargin_scale: float = 0.6,
     **fig_kw,
-) -> Tuple[plt.Figure, Tuple[mpl.axes.Axes, npt.NDArray[mpl.axes.Axes]]]:
+) -> Tuple[plt.Figure, Union[mpl.axes.Axes, npt.NDArray[mpl.axes.Axes]]]:
     """Utility wrapper for creating a figure with subplots of specific axes sizes.
 
     All sizes are in inches. wmargin and hmargin are the width and height margins on the left and bottom sides.
@@ -132,6 +132,7 @@ def add_colorbar(
 
     Args:
         im (mpl.image.AxesImage): The image to which the colorbar applies.
+        ax (mpl.axes.Axes, optional): The axes to draw the colorbar by. Defaults to None.
         aspect (float, optional): Aspect width scaled to current axis. Defaults to 20.
         pad_fraction (float, optional): Padding spacing. Defaults to 0.5.
 

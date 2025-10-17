@@ -17,7 +17,7 @@ import matplotlib.transforms as mtransforms
 from mpl_toolkits.axes_grid1 import Size
 from mpl_toolkits.axes_grid1.axes_divider import AxesDivider
 
-from typing import Callable
+from typing import Callable, Any
 
 import functools
 
@@ -46,7 +46,7 @@ class FixedSizeDivider(AxesDivider):
         locator.get_subplotspec = self.get_subplotspec
         return locator
 
-    def _locate(self, pad: float, aspect: float, axes, renderer):
+    def _locate(self, pad: float, aspect: float, axes: mpl.axes.Axes, renderer: Any):
         """
         Implementation of ``divider.new_locator().__call__``.
 
