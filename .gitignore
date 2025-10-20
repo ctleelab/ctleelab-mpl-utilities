@@ -166,3 +166,4 @@ cython_debug/
 !.pixi/config.toml
 
 ctleelab_plothelper/_version.py
+.DS_Store

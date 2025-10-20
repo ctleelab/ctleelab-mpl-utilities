@@ -25,9 +25,7 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Visualization",
 ]
 
-dependencies = [
-    "matplotlib",
-    "seaborn"]
+dependencies = ["matplotlib"]
 dynamic = ["version"]
 
 [tool.hatch]
@@ -44,8 +42,9 @@ platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
 ctleelab_plothelper = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+demo = "cd examples; python demo.py"
+strip = "python scripts/strip-base.py"
 
 [tool.pixi.dependencies]
-matplotlib = ">=3.10.6,<4"
-seaborn = ">=0.13.2,<0.14"
+matplotlib-base = ">=3.10.6,<4"
 mscorefonts = ">=0.0.1,<0.0.2"

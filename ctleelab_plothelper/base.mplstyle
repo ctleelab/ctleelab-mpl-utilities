@@ -1,0 +1,18 @@
+lines.linewidth: 0.8
+font.family:   sans-serif
+font.size:     8.0
+font.serif:      Times New Roman, DejaVu Serif
+font.sans-serif: Arial, Helvetica, DejaVu Sans, Roboto
+axes.titlesize:     medium
+axes.unicode_minus: False
+xtick.major.size:    3.6
+xtick.major.pad:     3.6
+ytick.major.size:    3.6
+ytick.major.pad:     3.6
+legend.fontsize:      small
+figure.figsize:      3, 3
+figure.dpi:          600
+savefig.dpi:       figure
+ps.fonttype:        42
+pdf.fonttype:        42
+svg.fonttype: none
