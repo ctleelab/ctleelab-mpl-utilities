@@ -4,11 +4,17 @@ font.size:     8.0
 font.serif:      Times New Roman, DejaVu Serif
 font.sans-serif: Arial, Helvetica, DejaVu Sans, Roboto
 axes.titlesize:     medium
+axes.titlepad:      3.6
+axes.labelpad:      1.8
 axes.unicode_minus: False
 xtick.major.size:    3.6
-xtick.major.pad:     3.6
+xtick.minor.size:    2
+xtick.major.pad:     1.8
+xtick.minor.pad:     3.4
 ytick.major.size:    3.6
-ytick.major.pad:     3.6
+ytick.minor.size:    2
+ytick.major.pad:     1.8
+ytick.minor.pad:     3.4
 legend.fontsize:      small
 figure.figsize:      3, 3
 figure.dpi:          600

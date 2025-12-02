@@ -277,9 +277,9 @@ axes.titlesize:     medium   # font size of the axes title
 #axes.titlecolor:    auto    # color of the axes title, auto falls back to
                              # text.color as default value
 #axes.titley:        None    # position title (axes relative units).  None implies auto
-#axes.titlepad:      6.0     # pad between axes and title in points
+axes.titlepad:      3.6     # pad between axes and title in points
 #axes.labelsize:     medium  # font size of the x and y labels
-#axes.labelpad:      4.0     # space between label and axis
+axes.labelpad:      1.8     # space between label and axis
 #axes.labelweight:   normal  # weight of the x and y labels
 #axes.labelcolor:    black
 #axes.axisbelow:     line    # draw axis gridlines and ticks:
@@ -387,15 +387,15 @@ axes.unicode_minus: False  # use Unicode for the minus symbol rather than hyphen
 #xtick.labeltop:      False   # draw label on the top
 #xtick.labelbottom:   True    # draw label on the bottom
 xtick.major.size:    3.6     # major tick size in points
-#xtick.minor.size:    2       # minor tick size in points
+xtick.minor.size:    2       # minor tick size in points
 #xtick.major.width:   0.8     # major tick width in points
 #xtick.minor.width:   0.6     # minor tick width in points
-xtick.major.pad:     3.6     # distance to major tick label in points
-#xtick.minor.pad:     3.4     # distance to the minor tick label in points
+xtick.major.pad:     1.8     # distance to major tick label in points
+xtick.minor.pad:     3.4     # distance to the minor tick label in points
 #xtick.color:         black   # color of the ticks
 #xtick.labelcolor:    inherit # color of the tick labels or inherit from xtick.color
 #xtick.labelsize:     medium  # font size of the tick labels
-#xtick.direction:     out     # direction: {in, out, inout}
+#xtick.direction:     out     # direction: {in, out, inout} # codespell:ignore inout
 #xtick.minor.visible: False   # visibility of minor ticks on x-axis
 #xtick.major.top:     True    # draw x axis top major ticks
 #xtick.major.bottom:  True    # draw x axis bottom major ticks
@@ -409,15 +409,15 @@ xtick.major.pad:     3.6     # distance to major tick label in points
 #ytick.labelleft:     True    # draw tick labels on the left side
 #ytick.labelright:    False   # draw tick labels on the right side
 ytick.major.size:    3.6     # major tick size in points
-#ytick.minor.size:    2       # minor tick size in points
+ytick.minor.size:    2       # minor tick size in points
 #ytick.major.width:   0.8     # major tick width in points
 #ytick.minor.width:   0.6     # minor tick width in points
-ytick.major.pad:     3.6     # distance to major tick label in points
-#ytick.minor.pad:     3.4     # distance to the minor tick label in points
+ytick.major.pad:     1.8     # distance to major tick label in points
+ytick.minor.pad:     3.4     # distance to the minor tick label in points
 #ytick.color:         black   # color of the ticks
 #ytick.labelcolor:    inherit # color of the tick labels or inherit from ytick.color
 #ytick.labelsize:     medium  # font size of the tick labels
-#ytick.direction:     out     # direction: {in, out, inout}
+#ytick.direction:     out     # direction: {in, out, inout} # codespell:ignore
 #ytick.minor.visible: False   # visibility of minor ticks on y-axis
 #ytick.major.left:    True    # draw y axis left major ticks
 #ytick.major.right:   True    # draw y axis right major ticks
