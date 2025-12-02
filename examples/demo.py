@@ -1,3 +1,15 @@
+#
+# ctleelab-mpl-utilities: A collection of utilities for plotting with matplotlib
+#
+# Copyright 2025- ctleelab
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+# Please help us support development by citing the research
+# papers on the package. Check out https://github.com/ctleelab/ctleelab-mpl-utilities/
+# for more information.
+
 import ctleelab_plothelper.plothelpers as ph
 
 import matplotlib
@@ -35,7 +47,7 @@ for i, (style, style_ext) in enumerate(plot_styles):
 
     # Style sheets can be combined with settings from the right-most having the highest priority.
     with plt.style.context(
-        ["ctleelab_plothelper.base", style, "ctleelab_plothelper.transparent"]
+        ["ctleelab_plothelper.base", style]
     ):
 
         fig, axs = ph.fixed_size_subplots(3, 3, subwidth=1.5, subheight=1.5)
@@ -57,9 +69,9 @@ for i, (style, style_ext) in enumerate(plot_styles):
         im = ax.imshow(r, cmap="viridis")
         ph.add_fixed_colorbar(im, ax=ax, aspect=20, pad=0.05)
 
-        fig.savefig(f"demo{style_ext}")
-        fig.savefig(f"demo{style_ext}.svg", format="svg")
-        fig.savefig(f"demo{style_ext}.pdf", format="pdf")
+        fig.savefig(f"outputs/demo{style_ext}")
+        fig.savefig(f"outputs/demo{style_ext}.svg", format="svg")
+        fig.savefig(f"outputs/demo{style_ext}.pdf", format="pdf")
 
         # Uncomment to test font sizes
 

@@ -41,6 +41,10 @@ platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
 [tool.pixi.pypi-dependencies]
 ctleelab_plothelper = { path = ".", editable = true }
 
+[tool.pixi.environments]
+default = { solve-group = "default" }
+test = { features = ["test"], solve-group = "default" }
+
 [tool.pixi.tasks]
 demo = "cd examples; python demo.py"
 strip = "python scripts/strip-base.py"
@@ -48,3 +52,17 @@ strip = "python scripts/strip-base.py"
 [tool.pixi.dependencies]
 matplotlib-base = ">=3.10.6,<4"
 mscorefonts = ">=0.0.1,<0.0.2"
+
+[tool.pixi.feature.test.dependencies]
+pytest = "*"
+
+# "pixi run tests" will run all files named test_*.py within tests/ directory
+[tool.pixi.feature.test.tasks]
+tests = "cd examples; pytest"
+tests-verbose = "cd examples; pytest -v"
+
+[tool.pytest.ini_options]
+testpaths = ["examples"]
+
+[tool.mypy]
+plugins = ["numpy.typing.mypy_plugin"]
