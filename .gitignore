@@ -167,3 +167,4 @@ cython_debug/
 
 ctleelab_plothelper/_version.py
 .DS_Store
+*.conda
