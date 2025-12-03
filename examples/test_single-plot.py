@@ -14,12 +14,13 @@ import ctleelab_plothelper.plothelpers as ph
 import matplotlib.pyplot as plt
 import numpy as np
 
+plot_styles = [
+    ("ctleelab_plothelper.light", ""),
+    ("ctleelab_plothelper.dark", "_dark"),
+]
+
 
 def test_single_plot():
-    plot_styles = [
-        ("ctleelab_plothelper.light", ""),
-        ("ctleelab_plothelper.dark", "_dark"),
-    ]
 
     for i, (style, style_ext) in enumerate(plot_styles):
 
@@ -71,6 +72,7 @@ def test_transparent_background():
     assert True
 
 
+
 def test_1x3():
     with plt.style.context(
         [
@@ -86,7 +88,32 @@ def test_1x3():
             x = np.arange(-10 * j, 10 * j, 1)
             y = np.sin(x)
 
-            ax.plot(x, y)
+            ax.scatter(x, y, edgecolors="black")
+            ax.minorticks_on()
+            ax.set_title("Plots of the same size")
+            ax.set_xlabel("X Axis")
+            ax.set_ylabel("Y Axis")
+
+        fig.savefig(f"outputs/1x3-scatter-plot")
+        # fig.savefig(f"outputs/transparent-plot{style_ext}.pdf", format="pdf")
+    assert True
+
+def test_1x3():
+    with plt.style.context(
+        [
+            "ctleelab_plothelper.base",
+            "ctleelab_plothelper.light",
+        ]
+    ):
+
+        fig, axs = ph.fixed_size_subplots(1, 3, subwidth=1.5, subheight=1.5)
+
+        for i, ax in enumerate(axs):
+            j = i + 1
+            x = np.arange(-10 * j, 10 * j, 1)
+            y = np.sin(x)
+
+            ax.plot(x, y, linestyle="--")
             ax.minorticks_on()
             ax.set_title("Plots of the same size")
             ax.set_xlabel("X Axis")
@@ -136,4 +163,38 @@ def test_colorbar():
 
         fig.savefig(f"outputs/fixed-size-colorbar")
         # fig.savefig(f"outputs/transparent-plot{style_ext}.pdf", format="pdf")
+    assert True
+
+
+def test_box_plot():
+    import seaborn as sns
+
+    for i, (style, style_ext) in enumerate(plot_styles):
+        # Style sheets can be combined with settings from the right-most having the highest priority.
+        with plt.style.context(["ctleelab_plothelper.base", style]):
+            fig, axs = ph.fixed_size_subplots(1, 3, subwidth=2, subheight=2)
+
+            ax = axs[0]
+            data = np.random.normal(0, 1, 100)
+
+            ax.boxplot(data)
+
+            ax.set_xlabel("Sample Data")
+            ax.set_ylabel("Value")
+            ax.set_title("Box Plot Example")
+
+            ax = axs[1]
+            ax.violinplot(data)
+            ax.set_xlabel("Sample Data")
+            ax.set_ylabel("Value")
+            ax.set_title("Violin Plot Example")
+
+            ax = axs[2]
+            sns.violinplot(data=data, ax=ax)
+            ax.set_xlabel("Sample Data")
+            ax.set_ylabel("Value")
+            ax.set_title("Violin Plot Example")
+
+            fig.savefig(f"outputs/box-plot{style_ext}")
+            # fig.savefig(f"outputs/transparent-plot{style_ext}.pdf", format="pdf")
     assert True

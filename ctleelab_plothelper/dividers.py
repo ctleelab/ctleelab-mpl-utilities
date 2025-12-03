@@ -12,7 +12,6 @@
 
 import matplotlib as mpl
 import matplotlib.transforms as mtransforms
-from mpl_toolkits.axes_grid1 import Size
 from mpl_toolkits.axes_grid1.axes_divider import AxesDivider
 
 from typing import Callable, Any
