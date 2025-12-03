@@ -1,4 +1,6 @@
 lines.linewidth: 0.8
+lines.markeredgewidth: 0.2
+lines.markersize:      3
 font.family:   sans-serif
 font.size:     8.0
 font.serif:      Times New Roman, DejaVu Serif
