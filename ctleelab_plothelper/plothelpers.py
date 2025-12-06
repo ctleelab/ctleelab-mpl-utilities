@@ -2,7 +2,6 @@
 # ctleelab-mpl-utilities: A collection of utilities for plotting with matplotlib
 #
 # Copyright 2025- ctleelab
-#
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -14,13 +13,16 @@
 import numpy as np
 
 import matplotlib as mpl
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
+from matplotlib.colorbar import Colorbar, ColorbarBase
+from matplotlib.colors import BoundaryNorm, LinearSegmentedColormap, Colormap
+from matplotlib.image import AxesImage
+from matplotlib.backend_bases import RendererBase
+
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
-# import matplotlib.lines as mlines
-# import matplotlib.patches as mpatches
-# import matplotlib.transforms as mtransforms
-# import matplotlib.font_manager
 
 from mpl_toolkits import axes_grid1
 from mpl_toolkits.axes_grid1 import Divider, Size
@@ -35,6 +37,10 @@ import numpy.typing as npt
 from typing import Tuple, Union
 
 
+now = datetime.datetime.now()
+date = now.strftime("%Y%m%d")
+
+
 def fixed_size_subplots(
     nrows: int = 1,
     ncols: int = 1,
@@ -46,8 +52,11 @@ def fixed_size_subplots(
     subwidth: float = 2,
     rmargin_scale: float = 0.6,
     tmargin_scale: float = 0.6,
-    **fig_kw,
-) -> Tuple[plt.Figure, Union[mpl.axes.Axes, npt.NDArray[mpl.axes.Axes]]]:
+    **fig_kw: ...,
+) -> Tuple[
+    Figure,
+    Union[Axes, npt.NDArray[np.object_]],
+]:
     """Utility wrapper for creating a figure with subplots of specific axes sizes.
 
     All sizes are in inches. wmargin and hmargin are the width and height margins on the left and bottom sides.
@@ -69,8 +78,8 @@ def fixed_size_subplots(
         **fig_kw: Additional keyword arguments passed to plt.figure()
 
     Returns:
-        fig, axs (Tuple[plt.Figure, Tuple[mpl.axes.Axes, npt.NDArray[mpl.axes.Axes]]]):
-        *axs* can be either a single `mpl.axes.Axes` object, or an array of Axes
+        fig, axs (Tuple[matplotlib.figure.Figure, Tuple[matplotlib.axes.Axes, npt.NDArray[matplotlib.axes.Axes]]]):
+        *axs* can be either a single `matplotlib.axes.Axes` object, or an array of Axes
         objects if more than one subplot was created.
     """
     width = ncols * (wmargin + colsep + subwidth) + wmargin * rmargin_scale
@@ -82,7 +91,7 @@ def fixed_size_subplots(
     # renderer = get_renderer(fig)
 
     # Initialize vertical divider locations
-    v = list()
+    v = list[Size.Fixed]()
     for i in range(1, nrows + 1):
         if i == 1:
             v.append(Size.Fixed(hmargin))
@@ -91,7 +100,7 @@ def fixed_size_subplots(
         v.append(Size.Fixed(subheight))
 
     # Initialize horizontal divider locations
-    h = list()
+    h = list[Size.Fixed]()
     for i in range(1, ncols + 1):
         if i == 1:
             h.append(Size.Fixed(wmargin))
@@ -112,22 +121,33 @@ def fixed_size_subplots(
     return fig, np.squeeze(axs)
 
 
-def get_renderer(fig):
+def get_renderer(fig: Figure) -> RendererBase:
+    """Helper function to get the renderer depending on the context.
+
+    Args:
+        fig (Figure): Figure of interest
+
+    Raises:
+        AttributeError: If no renderer can be found for the current backend.
+
+    Returns:
+        RendererBase: Renderer instance
+    """
     if hasattr(fig.canvas, "get_renderer"):
         return fig.canvas.get_renderer()
     elif hasattr(fig, "_get_renderer"):
         return fig._get_renderer()
-    backend = matplotlib.get_backend()
+    backend = mpl.get_backend()
     raise AttributeError(f"Could not find a renderer for the '{backend}' backend.")
 
 
 def add_colorbar(
-    im: mpl.image.AxesImage,
-    ax: mpl.axes.Axes = None,
+    im: AxesImage,
+    ax: Axes | None,
     aspect: float = 20,
     pad_fraction: float = 0.5,
-    **kwargs,
-) -> mpl.colorbar.Colorbar:
+    **kwargs: ...,
+) -> Colorbar:
     """Add a vertical color bar to an image plot.
 
     Args:
@@ -150,12 +170,12 @@ def add_colorbar(
 
 
 def add_fixed_colorbar(
-    im: mpl.image.AxesImage,
-    ax: mpl.axes.Axes = None,
+    im: AxesImage,
+    ax: Axes | None,
     aspect: float = 20,
     pad: float = 0.05,
     **kwargs,
-) -> mpl.colorbar.Colorbar:
+) -> Colorbar:
     """Add a vertical color bar to an axes with fixed non-floating subplots.
 
     Args:
@@ -200,7 +220,17 @@ def add_fixed_colorbar(
     return im.axes.figure.colorbar(im, cax=cax, **kwargs)
 
 
-def get_aspect(ax):
+def get_aspect(ax: Axes) -> float:
+    """Get the aspect ratio of a particular axis.
+
+    https://stackoverflow.com/questions/41597177/get-aspect-ratio-of-axes
+
+    Args:
+        ax (Axes): Axis of interest
+
+    Returns:
+        float: Aspect ratio of the figure
+    """
     # Total figure size
     figW, figH = ax.get_figure().get_size_inches()
     # Axis size on figure
@@ -214,20 +244,21 @@ def get_aspect(ax):
     return disp_ratio / data_ratio
 
 
-def custom_cmap(size, label, ticklabels, cmap=cm.RdPu):
+def custom_cmap(
+    label: str, ticklabels, size: int = 256, cmap: Colormap = mpl.colormaps["RdPu"]
+):
     """
     Function to define colormap
     """
-    cmap = cm.RdPu  # define the colormap
     cmaplist = [cmap(i) for i in range(cmap.N)]
-    cmap = mpl.colors.LinearSegmentedColormap.from_list("Custom cmap", cmaplist, cmap.N)
+    cmap = LinearSegmentedColormap.from_list("Custom cmap", cmaplist, cmap.N)
     bounds = np.linspace(0, 1, size)
-    norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+    norm = BoundaryNorm(bounds, cmap.N)
     val = (float(bounds[1]) - float(bounds[0])) / 2
     ticks = np.linspace(val, 1 - val, size - 1)
 
     cax = fig.add_axes([0.92, 0.25, 0.02, 0.5])
-    cb = mpl.colorbar.ColorbarBase(
+    cb = Colorbar(
         cax,
         cmap=cmap,
         norm=norm,
@@ -238,13 +269,3 @@ def custom_cmap(size, label, ticklabels, cmap=cm.RdPu):
         label=label,
     )
     cb.ax.set_yticklabels(ticklabels)  # vertically oriented colorbar
-
-
-now = datetime.datetime.now()
-date = now.strftime("%Y%m%d")
-
-
-def save_fig(fig, basename: str):
-    fig.savefig(f"{basename}.png", format="png")
-    fig.savefig(f"{basename}.svg", format="svg")
-    fig.savefig(f"{basename}.pdf", format="pdf")

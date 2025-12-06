@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+#
+# ctleelab-mpl-utilities: A collection of utilities for plotting with matplotlib
+#
+# Copyright 2025- ctleelab
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+# Please help us support development by citing the research
+# papers on the package. Check out https://github.com/ctleelab/ctleelab-mpl-utilities/
+# for more information.
 
 import sys
 import re
@@ -11,7 +22,7 @@ def strip_comments(filename):
     try:
         with open(filename, 'r') as file:
             lines = file.readlines()
-        
+
         stripped_lines = []
         for line in lines:
             # Remove comments (everything after #)
@@ -19,9 +30,9 @@ def strip_comments(filename):
             # Keep the line if it's not empty after stripping
             if stripped_line:
                 stripped_lines.append(stripped_line)
-        
+
         return stripped_lines
-    
+
     except FileNotFoundError:
         print(f"Error: File '{filename}' not found.")
         return None
