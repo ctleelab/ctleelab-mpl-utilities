@@ -870,7 +870,7 @@ packages:
   timestamp: 1756544970171
 - conda: .
   name: ctleelab_plothelper
-  version: 0.1.0
+  version: '0.1'
   build: pyh4616a5c_0
   subdir: noarch
   depends:
@@ -880,7 +880,7 @@ packages:
   - python *
   license: MPL-2.0
   input:
-    hash: 8e91e53f5c3dc9a452b3947e5a6ef4306b629b5f323be19185275c5ab0c02baf
+    hash: 43ff711733b1fb7ebe4677c22e499c15a9aff4794c1f6d9017fcb142d85636db
     globs:
     - pyproject.toml
 - conda: https://conda.anaconda.org/conda-forge/noarch/cycler-0.12.1-pyhd8ed1ab_1.conda

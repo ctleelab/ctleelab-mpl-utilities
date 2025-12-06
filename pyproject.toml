@@ -35,6 +35,9 @@ version.raw_options.version_scheme = "guess-next-dev"
 version.raw_options.local_scheme = "node-and-date"
 build.hooks.vcs.version-file = "ctleelab_plothelper/_version.py"
 
+[tool.hatch.build.targets.wheel]
+packages = ["ctleelab_plothelper"]
+
 [tool.pixi.workspace]
 preview = ["pixi-build"]
 channels = ["conda-forge"]
@@ -74,7 +77,7 @@ plugins = ["numpy.typing.mypy_plugin"]
 # PIXI PACKAGE CONFIGURATION
 [tool.pixi.package]
 name = "ctleelab_plothelper"
-version = "0.1.0" # Inheritance of version is not yet supported
+version = "0.1" # Inheritance of version is not yet supported
 
 [tool.pixi.package.host-dependencies]
 hatchling = "*"
