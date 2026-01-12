@@ -1,9 +1,5 @@
-[build-system]
-requires = ["hatchling", "hatch-vcs"]
-build-backend = "hatchling.build"
-
 [project]
-name = "ctleelab-mpl-utilities"
+name = "ctleelab_plothelper"
 
 authors = [{ name = "Christopher T. Lee", email = "ctlee@ucsd.edu" }]
 
@@ -12,7 +8,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 keywords = ["plotting"]
 
-license = { text = "Mozilla Public License 2.0 (MPL 2.0)" }
+license = "MPL-2.0"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",
@@ -24,15 +20,75 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering :: Visualization",
 ]
-
-dependencies = [
-    "matplotlib>=3.10.0,<4",
-    "seaborn>=0.13.2,<0.14",
-    "mscorefonts>=0.0.1,<0.0.2",]
+dependencies = ["matplotlib"]
 dynamic = ["version"]
+
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
 
 [tool.hatch]
 version.source = "vcs"
 version.raw_options.version_scheme = "guess-next-dev"
 version.raw_options.local_scheme = "node-and-date"
-build.hooks.vcs.version-file = "ctleelab-mpl-utilities/_version.py"
+build.hooks.vcs.version-file = "ctleelab_plothelper/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["ctleelab_plothelper"]
+
+[tool.pixi.workspace]
+preview = ["pixi-build"]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
+
+# [tool.pixi.pypi-dependencies]
+# ctleelab_plothelper = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+test = { features = ["test"], solve-group = "default" }
+
+[tool.pixi.tasks]
+demo = "cd examples; python demo.py"
+strip = "python scripts/strip-base.py"
+clean = "rm examples/outputs/*.png"
+
+[tool.pixi.dependencies]
+ctleelab_plothelper = { path = "." }
+
+[tool.pixi.feature.test.dependencies]
+pytest = "*"
+seaborn = ">=0.13.2,<0.14"
+
+# "pixi run tests" will run all files named test_*.py within tests/ directory
+[tool.pixi.feature.test.tasks]
+tests = "cd examples; pytest"
+tests-verbose = "cd examples; pytest -v"
+
+[tool.pytest.ini_options]
+testpaths = ["examples"]
+
+[tool.mypy]
+plugins = ["numpy.typing.mypy_plugin"]
+
+
+# PIXI PACKAGE CONFIGURATION
+[tool.pixi.package]
+name = "ctleelab_plothelper"
+version = "0.1" # Inheritance of version is not yet supported
+
+[tool.pixi.package.host-dependencies]
+hatchling = "*"
+hatch-vcs = "*"
+
+[tool.pixi.package.build]
+backend = { name = "pixi-build-python", version = "*"}
+
+[tool.pixi.package.build.config]
+noarch = true
+
+[tool.pixi.package.run-dependencies]
+matplotlib-base = ">=3.10.6,<4"
+mscorefonts = ">=0.0.1,<0.0.2"
